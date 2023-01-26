@@ -21,7 +21,7 @@ type Stats struct {
 	maxLineLength uint64
 }
 
-func examine(filename string) (*Stats, error) {
+func Examine(filename string) (*Stats, error) {
 	data, err := os.ReadFile(filename)
 	if err != nil {
 		return nil, err
@@ -43,13 +43,17 @@ func examine(filename string) (*Stats, error) {
 	stats.byteCounter = uint64(len(decompressedBytes))
 
 	var runesSinceLastNewline uint64 = 0
+	var inWord bool
 
 	for _, r := range string(decompressedBytes) {
 		runesSinceLastNewline++
+		stats.runeCounter++
 		switch r {
 		case ' ':
-			stats.wordCounter++
-			stats.runeCounter++
+			if inWord {
+				stats.wordCounter++
+				inWord = false
+			}
 		case '\n':
 			stats.lineCounter++
 			runesSinceLastNewline--
@@ -57,12 +61,19 @@ func examine(filename string) (*Stats, error) {
 				stats.maxLineLength = runesSinceLastNewline
 			}
 			runesSinceLastNewline = 0
-			stats.runeCounter++
+			if inWord {
+				stats.wordCounter++
+				inWord = false
+			}
 		default:
-			stats.runeCounter++
+			if !inWord {
+				inWord = true
+			}
 		}
 	}
-
+	if inWord {
+		stats.wordCounter++
+	}
 	return &stats, nil
 }
 
@@ -90,7 +101,7 @@ func main() {
 				filenames = c.Args().Slice()
 			}
 			for _, filename := range filenames {
-				stats, err := examine(filename)
+				stats, err := Examine(filename)
 				if err != nil {
 					return err
 				}
