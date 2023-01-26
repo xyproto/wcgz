@@ -1,0 +1,36 @@
+[2022-12-25T23:52:35.114Z] Info : loop_stop
+[2022-12-25T23:52:35.121Z] Info : Stopping event loop
+[2022-12-25T23:52:35.121Z] Info : Taking down TUN device
+[2022-12-25T23:52:35.121Z] Info : Closing VPNs: Service stopped
+[2022-12-25T23:52:35.124Z] Info : Exiting
+[2022-12-26T07:48:43.032Z] Info : loop_init, version 6.0.3-30924-release, Nov  4 2022, 08:41:18
+[2022-12-26T07:48:43.032Z] Info : Using eglib 2.4.0
+[2022-12-26T07:48:43.033Z] Info : Using zlib 1.2.12
+[2022-12-26T07:48:43.033Z] Info : Using libuv 1.44.1
+[2022-12-26T07:48:43.033Z] Info : Using WolfSSL 5.2.0
+[2022-12-26T07:48:43.033Z] Info : FIPS mode enabled, self test passed
+[2022-12-26T07:48:43.033Z] Info : Running on: Linux 6.1.1-arch1-1 (#1 SMP PREEMPT_DYNAMIC Wed, 21 Dec 2022 22:27:55 +0000) - Arch Linux
+[2022-12-26T07:48:43.033Z] Info : Dir: /opt/appgate
+[2022-12-26T07:48:43.033Z] Info : Running '/opt/appgate/linux/reset_fw'
+[2022-12-26T07:48:43.349Z] Info : Running '/opt/appgate/linux/set_dns --tundev=tun0 --reset'
+[2022-12-26T07:48:43.448Z] Info : Starting client control channel on /var/run/.appgate.driver.socket
+[2022-12-26T07:48:43.448Z] Info : Enabling AIO
+[2022-12-26T07:48:43.448Z] Info : Starting event loop
+[2022-12-26T11:01:46.634Z] Info : loop_stop
+[2022-12-26T11:01:46.634Z] Info : Stopping event loop
+[2022-12-26T11:01:46.634Z] Info : Taking down TUN device
+[2022-12-26T11:01:46.634Z] Info : Closing VPNs: Service stopped
+[2022-12-26T11:01:46.634Z] Info : Exiting
+[2022-12-26T16:41:19.595Z] Info : loop_init, version 6.0.3-30924-release, Nov  4 2022, 08:41:18
+[2022-12-26T16:41:19.595Z] Info : Using eglib 2.4.0
+[2022-12-26T16:41:19.595Z] Info : Using zlib 1.2.12
+[2022-12-26T16:41:19.596Z] Info : Using libuv 1.44.1
+[2022-12-26T16:41:19.596Z] Info : Using WolfSSL 5.2.0
+[2022-12-26T16:41:19.596Z] Info : FIPS mode enabled, self test passed
+[2022-12-26T16:41:19.596Z] Info : Running on: Linux 6.1.1-arch1-1 (#1 SMP PREEMPT_DYNAMIC Wed, 21 Dec 2022 22:27:55 +0000) - Arch Linux
+[2022-12-26T16:41:19.596Z] Info : Dir: /opt/appgate
+[2022-12-26T16:41:19.596Z] Info : Running '/opt/appgate/linux/reset_fw'
+[2022-12-26T16:41:20.099Z] Info : Running '/opt/appgate/linux/set_dns --tundev=tun0 --reset'
+[2022-12-26T16:41:20.253Z] Info : Starting client control channel on /var/run/.appgate.driver.socket
+[2022-12-26T16:41:20.253Z] Info : Enabling AIO
+[2022-12-26T16:41:20.253Z] Info : Starting event loop
