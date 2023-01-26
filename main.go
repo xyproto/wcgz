@@ -10,8 +10,9 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-const versionString = "zwc 1.0.0"
+const versionString = "zwc 1.0.1"
 
+// Stats contains statistics about a single file, such as the number of lines
 type Stats struct {
 	byteCounter   uint64
 	runeCounter   uint64
@@ -20,6 +21,7 @@ type Stats struct {
 	maxLineLength uint64
 }
 
+// Examine collects statistics about a single gzipped file
 func Examine(filename string) (*Stats, error) {
 	data, err := os.ReadFile(filename)
 	if err != nil {
@@ -38,11 +40,13 @@ func Examine(filename string) (*Stats, error) {
 		return nil, fmt.Errorf("zwc: %s: could not decompress", filename)
 	}
 
-	var stats Stats
-	stats.byteCounter = uint64(len(decompressedBytes))
+	var (
+		stats                 Stats
+		runesSinceLastNewline uint64
+		inWord                bool
+	)
 
-	var runesSinceLastNewline uint64 = 0
-	var inWord bool
+	stats.byteCounter = uint64(len(decompressedBytes))
 
 	for _, r := range string(decompressedBytes) {
 		runesSinceLastNewline++
@@ -73,6 +77,7 @@ func Examine(filename string) (*Stats, error) {
 	if inWord {
 		stats.wordCounter++
 	}
+
 	return &stats, nil
 }
 
@@ -98,29 +103,33 @@ func main() {
 			if c.NArg() > 0 {
 				filenames = c.Args().Slice()
 			}
+			formatString := "%d %s\n"
+			if len(filenames) > 0 {
+				formatString = "%6d %s\n"
+			}
 			for _, filename := range filenames {
 				stats, err := Examine(filename)
 				if err != nil {
 					return err
 				}
 				if c.Bool("lines") {
-					fmt.Printf("%d %s\n", stats.lineCounter, filename)
+					fmt.Printf(formatString, stats.lineCounter, filename)
 					continue
 				}
 				if c.Bool("bytes") {
-					fmt.Printf("%d %s\n", stats.byteCounter, filename)
+					fmt.Printf(formatString, stats.byteCounter, filename)
 					continue
 				}
 				if c.Bool("chars") {
-					fmt.Printf("%d %s\n", stats.runeCounter, filename)
+					fmt.Printf(formatString, stats.runeCounter, filename)
 					continue
 				}
 				if c.Bool("words") {
-					fmt.Printf("%d %s\n", stats.wordCounter, filename)
+					fmt.Printf(formatString, stats.wordCounter, filename)
 					continue
 				}
 				if c.Bool("max-line-length") {
-					fmt.Printf("%d %s\n", stats.maxLineLength, filename)
+					fmt.Printf(formatString, stats.maxLineLength, filename)
 					continue
 				}
 				fmt.Printf("%4d %4d %4d %s\n", stats.lineCounter, stats.wordCounter, stats.runeCounter, filename)
