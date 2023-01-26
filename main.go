@@ -8,10 +8,9 @@ import (
 	"os"
 
 	"github.com/urfave/cli/v2"
-	"github.com/xyproto/textoutput"
 )
 
-const versionString = "zwc 0.0.1"
+const versionString = "zwc 1.0.0"
 
 type Stats struct {
 	byteCounter   uint64
@@ -78,7 +77,6 @@ func Examine(filename string) (*Stats, error) {
 }
 
 func main() {
-	o := textoutput.New()
 	if appErr := (&cli.App{
 		Name:  "zwc",
 		Usage: "count lines, words, bytes and runes in gzipped text files",
@@ -92,7 +90,7 @@ func main() {
 		},
 		Action: func(c *cli.Context) error {
 			if c.Bool("version") {
-				o.Println(versionString)
+				fmt.Println(versionString)
 				os.Exit(0)
 			}
 			filenames := []string{}
@@ -130,6 +128,7 @@ func main() {
 			return nil
 		},
 	}).Run(os.Args); appErr != nil {
-		o.ErrExit(appErr.Error())
+		fmt.Fprintln(os.Stderr, appErr.Error())
+		os.Exit(1)
 	}
 }
