@@ -30,13 +30,13 @@ func Examine(filename string) (*Stats, error) {
 	buf := bytes.NewBuffer(data)
 	decompressorReader, err := gzip.NewReader(buf)
 	if err != nil {
-		return nil, fmt.Errorf("Could not read buffer: %s", err)
+		return nil, fmt.Errorf("zwc: %s: not in gzip format", filename)
 	}
 
 	decompressedBytes, err := io.ReadAll(decompressorReader)
 	decompressorReader.Close()
 	if err != nil {
-		return nil, fmt.Errorf("Could not decompress: %s", err)
+		return nil, fmt.Errorf("zwc: %s: could not decompress", filename)
 	}
 
 	var stats Stats
@@ -125,7 +125,7 @@ func main() {
 					fmt.Printf("%d %s\n", stats.maxLineLength, filename)
 					continue
 				}
-				fmt.Printf("%d %d %d %s\n", stats.lineCounter, stats.wordCounter, stats.runeCounter, filename)
+				fmt.Printf("%4d %4d %4d %s\n", stats.lineCounter, stats.wordCounter, stats.runeCounter, filename)
 			}
 			return nil
 		},
