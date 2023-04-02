@@ -10,7 +10,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-const versionString = "zwc 1.0.1"
+const versionString = "wcgz 1.0.2"
 
 // Stats contains statistics about a single file, such as the number of lines
 type Stats struct {
